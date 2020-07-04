@@ -1,1 +1,5 @@
-/home/ivanbiljan/.bash_profile
+#
+# ~/.bash_profile
+#
+neofetch
+[[ -f ~/.bashrc ]] && . ~/.bashrc
