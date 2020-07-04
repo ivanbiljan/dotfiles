@@ -1,0 +1,1 @@
+/home/ivanbiljan/.bash_profile
