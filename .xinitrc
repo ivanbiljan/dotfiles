@@ -1,5 +1,8 @@
-# Start the notification daemon
+#Start the notification daemon
 /usr/lib/notification-daemon-1.0/notification-daemon &
+
+# Start dwmblocks
+/usr/local/bin/dwmblocks &
 
 # Set the resolution
 ~/scripts/setresolution
@@ -8,9 +11,6 @@
 xset +fp ~/.local/share/fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash
-
-# Set the root window's name
-xsetroot -name "Arch Dev"
 
 # Set a background
 nitrogen --restore &
