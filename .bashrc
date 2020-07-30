@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 alias la='ls -alh --color=auto'
 alias desk='cd ~/Desktop'
 alias pip='sudo pacman -Sy'
+alias redunst='killall dunst 2> /dev/null; (/usr/bin/dunst &) && echo Reloaded dunstrc'
 PS1='[\u@\h \W]\$ '
 
 # Startup commands
