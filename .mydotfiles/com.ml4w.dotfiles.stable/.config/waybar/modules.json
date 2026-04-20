@@ -200,10 +200,10 @@
   },
   // Weather
   "custom/weather": {
-    "format": "{}",
+    "format": "{}° C",
     "interval": 900,
     "return-type": "json",
-    "exec": "~/.config/waybar/scripts/weather.sh",
+    "exec": "~/srv/git/wttrbar/target/release/wttrbar --location Zagreb --date-format %d.%m.%Y --hide-conditions --nerd",
     "exec-if": "ping wttr.in -c 1"
   },
   // Keyboard State
