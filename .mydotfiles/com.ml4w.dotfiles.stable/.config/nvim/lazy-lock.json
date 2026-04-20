@@ -1,6 +1,7 @@
 {
   "arctic": { "branch": "main", "commit": "46da33aeb3a8ee48533f41911b3aaf4f1541dd6f" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
+  "lightline.vim": { "branch": "master", "commit": "6c283f8df85aa7219fa4096a6ed4ff45d48aa9e1" },
   "lush.nvim": { "branch": "main", "commit": "9c60ec2279d62487d942ce095e49006af28eed6e" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c" },

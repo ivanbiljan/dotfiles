@@ -16,5 +16,15 @@ return {
         config = function()
             vim.cmd("colorscheme arctic")
         end
+    },
+    {
+        "itchyny/lightline.vim",
+        lazy = false,
+        config = function()
+            vim.g.lightline = {
+                colorscheme = "powerline",
+            }
+            vim.o.showmode = false  
+        end,
     }
 }
