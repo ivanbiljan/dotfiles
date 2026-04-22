@@ -15,3 +15,10 @@ vim.opt.wildmode = "longest,list"	-- bash-like tab completions. Complete to long
 vim.opt.syntax = "on"			    -- syntax higlighting
 vim.opt.clipboard = "unnamedplus"	-- system clipboard
 vim.opt.ttyfast = true			    -- speed up scrolling in vim
+
+vim.opt.foldenable = false
+vim.opt.foldmethod = "manual"
+vim.opt.foldlevelstart = 120
+vim.opt.wrap = false
+
+vim.opt.wildignore = ".hg,.snv,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site"
