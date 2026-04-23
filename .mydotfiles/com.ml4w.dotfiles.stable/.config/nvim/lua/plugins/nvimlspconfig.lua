@@ -9,7 +9,7 @@ return {
                     automatic_enable = true
                 })
 
-                vim.api.nvim_create_command("LspAttach", {
+                vim.api.nvim_create_autocmd("LspAttach", {
                     callback = function(ev)
                         local opts = { buffer = ev.buffer }
                         vim.keymap.set("n", "gD", vim.lsp.buf.definition, opts)
