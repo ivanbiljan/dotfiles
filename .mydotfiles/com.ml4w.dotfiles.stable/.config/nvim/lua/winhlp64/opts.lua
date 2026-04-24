@@ -1,7 +1,7 @@
 # https://neovim.io/doc/user/quickref/#option-list
 vim.opt.showmatch = false		    -- when a bracket is inserted, briefly jump to the matching one 
 vim.opt.ignorecase = true		    -- ignore case sensitivy in search patterns
-vim.opt.mouse = "v"		    	    -- enable mouse in Visual mode
+vim.opt.mouse = "a"		    	    -- enable mouse in Visual mode
 vim.opt.hlsearch = true			    -- highlight search 
 vim.opt.incsearch = true		    -- incremental search
 vim.opt.tabstop = 4			        -- number of columns occupied by tab
