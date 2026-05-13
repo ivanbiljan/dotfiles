@@ -1,0 +1,109 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Options --
+set scrolloff=8
+set noshowmatch          " don't jump to matching bracket on insert
+set ignorecase           " ignore case in search patterns
+set mouse=a              " enable mouse in all modes
+set hlsearch             " highlight search results
+set incsearch            " incremental search
+set tabstop=4            " number of columns per tab
+set softtabstop=4        " treat multiple spaces as tabstops for backspace
+set expandtab            " convert tabs to spaces
+set shiftwidth=4         " width for autoindents
+set autoindent           " indent new line same as previous
+set relativenumber number       " show relative line numbers
+set wildmode=longest,list " bash-like tab completion
+set clipboard=unnamedplus " use system clipboard
+set ttyfast              " speed up scrolling
+set nofoldenable         " disable folding
+set foldmethod=manual    " manual fold method
+set foldlevelstart=120   " start with folds open
+set nowrap               " disable line wrap
+set wildignore=.hg,.snv,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site
+
+" syntax highlighting is always on in IdeaVim
+
+
+"" -- Leader --
+let mapleader = " "
+
+
+"" -- Plugins --
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+
+"" -- Keymaps --
+map Q gq
+
+" File explorer / save
+nmap <leader>pv :Ex<CR>
+nmap <leader>w :w<CR>
+
+" Escape with C-j and C-k in all modes
+noremap  <C-j> <Esc>
+inoremap <C-j> <Esc>
+cnoremap <C-j> <Esc>
+noremap  <C-k> <Esc>
+inoremap <C-k> <Esc>
+cnoremap <C-k> <Esc>
+
+" Disable arrow keys to force hjkl
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
+inoremap <right> <nop>
+
+" Move by visual line when text is soft-wrapped
+nnoremap j gj
+nnoremap k gk
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+" Code Cleanup: Ctrl+E then Ctrl+C (chord sequence)
+noremap <C-E><C-C> <ESC>:action CodeCleanup<CR>
+
+" File search: Ctrl+T
+noremap <C-T> <ESC>:action GotoFile<CR>
+noremap <leade>pv <ESC>:action GotoFile<CR>
+
+" Find in file: Ctrl+F
+noremap <C-F> <ESC>:action Find<CR>
+
+" Safe delete: Ctrl+R, D
+noremap <C-R><C-D> <ESC>:action SafeDelete<CR>
+
+" Rename: Ctrl+R, R
+noremap <C-R><C-R> <ESC>:action RenameElement<CR>
+
+" Go to implementation
+noremap <leader>gi <ESC>:action GotoImplementation<CR>
+
+" Find usages
+noremap <leader>fu <ESC>:action FindUsages<CR>
+
+" Go to declaration
+noremap <leader>gd <ESC>:action GoToDeclaration<CR>
+
+" Go to definition
+noremap <leader>gD <ESC>:action GoToDefinition<CR>
+
+" Show info on hover
+noremap K <ESC>:action ShowHoverInfo<CR>
