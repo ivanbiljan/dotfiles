@@ -32,5 +32,27 @@ vim.keymap.set('i', '<left>', '<nop>')
 vim.keymap.set('i', '<right>', '<nop>')
 
 -- make j and k move by visual line when text is soft wrapped
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "j", "gjzz") -- go down one line respecting wrapped lines and center
+vim.keymap.set("n", "k", "gkzz") -- go up one line respecting wrapped lines and center
+vim.keymap.set("n", "G", "Gzz") -- go to line / end of file and center
+vim.keymap.set("n", "#", "#zz") -- search backward for word under cursor and center
+vim.keymap.set("n", "*", "*zz") -- search forward for word under cursor and center
+vim.keymap.set("n", "w", "wzz") -- foward one word and center
+vim.keymap.set("n", "W", "Wzz") -- foward whitespace delimited word and center
+vim.keymap.set("n", "e", "ezz") -- end of word and center
+vim.keymap.set("n", "E", "Ezz") -- end of whitespace delimited word and center
+vim.keymap.set("n", "b", "bzz") -- back one word and center
+vim.keymap.set("n", "B", "Bzz") -- back one whitespace delimited word and center
+vim.keymap.set("n", "H", "Hzz") -- top of visible screen and center
+vim.keymap.set("n", "L", "Lzz") -- bottom of visible screen and center
+vim.keymap.set("n", "0", "0zz") -- start of line and center
+vim.keymap.set("n", "$", "$zz") -- end of line and center
+vim.keymap.set("n", "^", "^zz") -- first non blank char of line and center
+vim.keymap.set("n", "u", "uzz") -- undo and center
+vim.keymap.set("n", "(", "(zz") -- previous sentence and center
+vim.keymap.set("n", ")", ")zz") -- next sentence and center
+vim.keymap.set("n", "{", "{zz") -- previous para and center
+vim.keymap.set("n", "}", "}zz") -- next para and center
+vim.keymap.set("n", "[{", "[{zz") -- jump to opening { of current block and center
+vim.keymap.set("n", "]}", "]}zz") -- jump to closing } of current block and center
+vim.keymap.set("n", "gd", "gdzz") -- go to declaration and center
