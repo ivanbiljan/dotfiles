@@ -56,3 +56,5 @@ vim.keymap.set("n", "}", "}zz") -- next para and center
 vim.keymap.set("n", "[{", "[{zz") -- jump to opening { of current block and center
 vim.keymap.set("n", "]}", "]}zz") -- jump to closing } of current block and center
 vim.keymap.set("n", "gd", "gdzz") -- go to declaration and center
+vim.keymap.set("n", "<C-D>", "<C-D>zz") -- move down and center
+vim.keymap.set("n", "<C-U>", "<C-U>zz") -- move up and center
