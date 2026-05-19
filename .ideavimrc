@@ -63,8 +63,32 @@ inoremap <left>  <nop>
 inoremap <right> <nop>
 
 " Move by visual line when text is soft-wrapped
-nnoremap j gj
-nnoremap k gk
+nnoremap # #zz
+nnoremap * *zz
+nnoremap w wzz
+nnoremap W Wzz
+nnoremap e ezz
+nnoremap E Ezz
+nnoremap b bzz
+nnoremap B Bzz
+nnoremap H Hzz
+nnoremap L Lzz
+nnoremap 0 0zz
+nnoremap $ $zz
+nnoremap ^ ^zz
+nnoremap j jzz
+nnoremap k kzz
+nnoremap G Gzz
+nnoremap u uzz
+nnoremap ( (zz
+nnoremap ) )zz
+nnoremap { {zz
+nnoremap } }zz
+nnoremap [{ [{zz
+nnoremap ]} ]}zz
+nnoremap gd gdzz
+nnoremap <C-D> <C-D>zz
+nnoremap <C-U> <C-U>zz
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
