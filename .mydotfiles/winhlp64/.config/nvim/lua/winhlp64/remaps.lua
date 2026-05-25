@@ -58,7 +58,3 @@ vim.keymap.set("n", "]}", "]}zz") -- jump to closing } of current block and cent
 vim.keymap.set("n", "gd", "gdzz") -- go to declaration and center
 vim.keymap.set("n", "<C-D>", "<C-D>zz") -- move down and center
 vim.keymap.set("n", "<C-U>", "<C-U>zz") -- move up and center
-vim.keymap.set("n", "<C-h>", "<C-w>h") -- move between splits using Ctrl + hjkl, saving a keypress
-vim.keymap.set("n", "<C-j>", "<C-w>j") -- move between splits using Ctrl + hjkl, saving a keypress
-vim.keymap.set("n", "<C-k>", "<C-w>k") -- move between splits using Ctrl + hjkl, saving a keypress
-vim.keymap.set("n", "<C-l>", "<C-w>l") -- move between splits using Ctrl + hjkl, saving a keypress
