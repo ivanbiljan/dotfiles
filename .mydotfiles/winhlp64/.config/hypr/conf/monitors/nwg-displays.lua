@@ -1,0 +1,11 @@
+-- -----------------------------------------------------
+-- Monitor Setup
+-- name: "nwg-displays"
+-- -----------------------------------------------------
+--
+-- nwg-displays writes its output to ~/.config/hypr/monitors.conf and
+-- ~/.config/hypr/workspaces.conf in the legacy hyprlang format, which the
+-- Lua config cannot `source`. If you use nwg-displays, either keep using the
+-- legacy hyprland.conf for monitor setup, or translate the generated
+-- monitors.conf / workspaces.conf into hl.monitor() / hl.workspace_rule()
+-- calls here (see the other monitors/*.lua and workspaces/*.lua for the form).
