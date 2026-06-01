@@ -106,6 +106,7 @@ noremap <C-E><C-C> <ESC>:action CodeCleanup<CR>
 " File search: Ctrl+T
 noremap <C-T> <ESC>:action GotoClass<CR>
 noremap <leader>pf <ESC>:action GotoFile<CR>
+noremap <leader>pv <ESC>:action ActivateProjectToolWindow<CR>
 
 " Find in file: Ctrl+F
 noremap <C-F> <ESC>:action Find<CR>
