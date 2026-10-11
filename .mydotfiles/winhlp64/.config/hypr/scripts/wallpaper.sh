@@ -118,6 +118,18 @@ else
     effect="off"
 fi
 
+
+# -----------------------------------------------------
+# Apply wallpaper with hyprpaper
+# -----------------------------------------------------
+_writelog "Applying $used_wallpaper with hyprpaper"
+for m in $(hyprctl monitors | awk '/^Monitor/{print $2}'); do
+    hyprctl hyprpaper wallpaper "$m,$used_wallpaper"
+done
+
+# Persist for the next hyprpaper start
+sed -i "s|^\(\s*path = \).*|\1$used_wallpaper|" "$HOME/.config/hypr/hyprpaper.conf"
+
 # -----------------------------------------------------
 # Detect Theme
 # -----------------------------------------------------
