@@ -1,6 +1,7 @@
-return 
+return
 {
-    'nvim-telescope/telescope.nvim', version = '*',
+    'nvim-telescope/telescope.nvim',
+    version = '*',
     dependencies = {
         'nvim-lua/plenary.nvim',
         -- optional but recommended
@@ -17,6 +18,8 @@ return
                     "node_modules/",
                     "vendor/",
                     "dist/",
+                    ".claude/",
+                    ".mtk/"
                 }
             }
         }
