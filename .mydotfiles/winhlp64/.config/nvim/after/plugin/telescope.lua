@@ -1,19 +1,19 @@
-local builtin = require("telescope.builtin")
+local telescope = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>fb", function()
-    builtin.buffers()
-end)
+vim.keymap.set("n", "<leader>fb", telescope.buffers, {})
+
+vim.keymap.set("n", "<leader>gs", telescope.git_status, {})
 
 vim.keymap.set("n", "<leader>pf", function()
-    local ok = pcall(builtin.git_files)
+    local ok = pcall(telescope.git_files)
     if not ok then
         vim.notify("Not a git repository - falling back to find_files", vim.log.levels.WARN)
-        builtin.find_files()
+        telescope.find_files()
     end
 end, {})
 
-vim.keymap.set("n", "<C-p>", builtin.find_files, {})
+vim.keymap.set("n", "<C-p>", telescope.find_files, {})
 
 vim.keymap.set("n", "<leader>ps", function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") });
-end)
+    telescope.grep_string({ search = vim.fn.input("Grep > ") });
+end, {})
