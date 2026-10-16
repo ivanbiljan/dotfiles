@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
+vim.keymap.set("n", "<C-h>", "<cm>nohlsearch<cmd>")
+vim.keymap.set("v", "<C-h>", "<cm>nohlsearch<cmd>")
 
 vim.keymap.set('n', '<C-j>', '<Esc>')
 vim.keymap.set('i', '<C-j>', '<Esc>')
@@ -56,5 +58,6 @@ vim.keymap.set("n", "}", "}zz") -- next para and center
 vim.keymap.set("n", "[{", "[{zz") -- jump to opening { of current block and center
 vim.keymap.set("n", "]}", "]}zz") -- jump to closing } of current block and center
 vim.keymap.set("n", "gd", "gdzz") -- go to declaration and center
+vim.keymap.set("n", "gD", "gDzz") -- go to declaration and center
 vim.keymap.set("n", "<C-D>", "<C-D>zz") -- move down and center
 vim.keymap.set("n", "<C-U>", "<C-U>zz") -- move up and center
