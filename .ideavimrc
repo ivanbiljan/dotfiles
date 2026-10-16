@@ -2,31 +2,35 @@
 "   the same commands as the original .vimrc configuration.
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
+"
+" Mirrors: github.com/ivanbiljan/dotfiles -> .mydotfiles/winhlp64/.config/nvim
+"   opts.lua, remaps.lua, after/plugin/telescope.lua, plugins/nvimlspconfig.lua
 
 
-"" -- Options --
+"" -- Options (opts.lua) --
 set scrolloff=8
-set noshowmatch          " don't jump to matching bracket on insert
-set ignorecase           " ignore case in search patterns
-set mouse=a              " enable mouse in all modes
-set hlsearch             " highlight search results
-set incsearch            " incremental search
-set tabstop=4            " number of columns per tab
-set softtabstop=4        " treat multiple spaces as tabstops for backspace
-set expandtab            " convert tabs to spaces
-set shiftwidth=4         " width for autoindents
-set autoindent           " indent new line same as previous
-set relativenumber number       " show relative line numbers
+set noshowmatch           " don't jump to matching bracket on insert
+set ignorecase            " ignore case in search patterns
+set mouse=a               " enable mouse in all modes
+set hlsearch              " highlight search results
+set incsearch             " incremental search
+set tabstop=4             " number of columns per tab
+set softtabstop=4         " treat multiple spaces as tabstops for backspace
+set expandtab             " convert tabs to spaces
+set shiftwidth=4          " width for autoindents
+set autoindent            " indent new line same as previous
+set number relativenumber " hybrid line numbers
 set wildmode=longest,list " bash-like tab completion
 set clipboard=unnamedplus " use system clipboard
-set ttyfast              " speed up scrolling
-set nofoldenable         " disable folding
-set foldmethod=manual    " manual fold method
-set foldlevelstart=120   " start with folds open
-set nowrap               " disable line wrap
+set ttyfast               " speed up scrolling
+set nofoldenable          " disable folding
+set foldmethod=manual     " manual fold method
+set foldlevelstart=120    " start with folds open
+set nowrap                " disable line wrap
 set wildignore=.hg,.snv,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site
 
 " syntax highlighting is always on in IdeaVim
+" diagnostics.lua (virtual_text) has no IdeaVim equivalent - the IDE renders inspections itself
 
 
 "" -- Leader --
@@ -38,20 +42,30 @@ let mapleader = " "
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
+" Vim keys in the Project tool window (j/k, o, p, x, n/N, d, /, q ...)
+Plug 'preservim/nerdtree'
 
 
-"" -- Keymaps --
+"" -- General keymaps (remaps.lua) --
 map Q gq
 
-" File explorer / save
+" Save
 nmap <leader>w :w<CR>
 
-" Escape with C-j and C-k in all modes
+" Project view (nvim: <leader>pv -> netrw :Ex)
+map <leader>pv <Action>(ActivateProjectToolWindow)
+
+" Escape with C-j in all modes
 noremap  <C-j> <Esc>
 inoremap <C-j> <Esc>
 cnoremap <C-j> <Esc>
-noremap  <C-k> <Esc>
-inoremap <C-k> <Esc>
+
+" C-k: in nvim the LspAttach buffer-local map (signature help in n/i/v) overrides
+" the global <Esc> map in every code buffer, so it's signature help here too.
+" Escape is kept only for the command line.
+nmap <C-k> <Action>(ParameterInfo)
+imap <C-k> <Action>(ParameterInfo)
+vmap <C-k> <Action>(ParameterInfo)
 cnoremap <C-k> <Esc>
 
 " Disable arrow keys to force hjkl
@@ -62,7 +76,10 @@ inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
 
-" Move by visual line when text is soft-wrapped
+" Move by visual line when text is soft-wrapped, and center after motions
+nnoremap j gjzz
+nnoremap k gkzz
+nnoremap G Gzz
 nnoremap # #zz
 nnoremap * *zz
 nnoremap w wzz
@@ -76,9 +93,6 @@ nnoremap L Lzz
 nnoremap 0 0zz
 nnoremap $ $zz
 nnoremap ^ ^zz
-nnoremap j jzz
-nnoremap k kzz
-nnoremap G Gzz
 nnoremap u uzz
 nnoremap ( (zz
 nnoremap ) )zz
@@ -86,48 +100,82 @@ nnoremap { {zz
 nnoremap } }zz
 nnoremap [{ [{zz
 nnoremap ]} ]}zz
-nnoremap gd gdzz
 nnoremap <C-D> <C-D>zz
 nnoremap <C-U> <C-U>zz
 
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
 
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
+"" -- Windows / splits (nvim defaults) --
+" Give Vim the <C-w> prefix instead of the IDE's Extend Selection (also keeps insert-mode <C-w>)
+sethandler <C-w> a:vim
 
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
+" Built into IdeaVim 2.39+, no mappings needed - listed here as a reference:
+"   <C-w>s  :sp        split horizontally          <C-w>v  :vs    split vertically
+"   <C-w>c  <C-w>q     close split                 <C-w>o  :on    close all other splits
+"   <C-w>h/j/k/l       move to split               <C-w>w  <C-w>W next / previous split
+"   <C-w>+  <C-w>-     taller / shorter            <C-w>>  <C-w>< wider / narrower
+"   <C-w>_  <C-w>|     maximize height / width     <C-w>=         equalize sizes
+"   :resize [+-]N      :vertical resize [+-]N
 
+" Not built in - closest IDE actions
+" <C-w>p: previous window (cycles; same as Vim's with two splits)
+nmap <C-w>p      <Action>(PrevSplitter)
+nmap <C-w><C-p>  <Action>(PrevSplitter)
+" <C-w>x: exchange - moves the current file into the other split
+nmap <C-w>x      <Action>(MoveEditorToOppositeTabGroup)
+nmap <C-w><C-x>  <Action>(MoveEditorToOppositeTabGroup)
+" <C-w>H/J/K/L: move window to an edge - the IDE can only flip the split orientation
+nmap <C-w>H      <Action>(ChangeSplitOrientation)
+nmap <C-w>J      <Action>(ChangeSplitOrientation)
+nmap <C-w>K      <Action>(ChangeSplitOrientation)
+nmap <C-w>L      <Action>(ChangeSplitOrientation)
+
+
+"" -- Terminal --
+" Toggle the terminal tool window (toggleterm.nvim's default key)
+sethandler <C-\> a:vim
+nmap <C-\> <Action>(ActivateTerminalToolWindow)
+imap <C-\> <Action>(ActivateTerminalToolWindow)
+vmap <C-\> <Action>(ActivateTerminalToolWindow)
+
+
+"" -- Search (after/plugin/telescope.lua) --
+" Find files (nvim: git_files with find_files fallback / <C-p> find_files)
+map <leader>pf <Action>(GotoFile)
+map <C-p>      <Action>(GotoFile)
+" Grep across the project (nvim: grep_string with prompt)
+map <leader>ps <Action>(FindInPath)
+
+
+"" -- LSP (plugins/nvimlspconfig.lua) --
+" Go to definition (nvim: Telescope lsp_definitions)
+nmap gd <Action>(GotoDeclaration)
+" Go to declaration (nvim: vim.lsp.buf.declaration) - closest IDE match is the type declaration
+nmap gD <Action>(GotoTypeDeclaration)
+" Show references (nvim: Telescope lsp_references)
+nmap gR <Action>(FindUsages)
+" Show implementations (nvim: Telescope lsp_implementations)
+nmap gi <Action>(GotoImplementation)
+" Hover documentation
+nmap K <Action>(QuickJavaDoc)
+" Rename symbol
+nmap <leader>rs <Action>(RenameElement)
+" Code actions
+nmap <leader>ca <Action>(ShowIntentionActions)
+vmap <leader>ca <Action>(ShowIntentionActions)
+" Toggle inlay hints
+nmap <leader>ih <Action>(ToggleInlayHintsGloballyAction)
+" Format code
+nmap <leader>fc <Action>(ReformatCode)
+
+
+"" -- IDE-only keymaps (no nvim counterpart, kept from previous config) --
 " Code Cleanup: Ctrl+E then Ctrl+C (chord sequence)
-noremap <C-E><C-C> <ESC>:action CodeCleanup<CR>
-
-" File search: Ctrl+T
-noremap <C-T> <ESC>:action GotoClass<CR>
-noremap <leader>pf <ESC>:action GotoFile<CR>
-noremap <leader>pv <ESC>:action ActivateProjectToolWindow<CR>
-
+map <C-E><C-C> <Action>(CodeCleanup)
+" Go to class/type: Ctrl+T
+map <C-T> <Action>(GotoClass)
 " Find in file: Ctrl+F
-noremap <C-F> <ESC>:action Find<CR>
-
+map <C-F> <Action>(Find)
 " Safe delete: Ctrl+R, D
-noremap <C-R><C-D> <ESC>:action SafeDelete<CR>
-
+map <C-R><C-D> <Action>(SafeDelete)
 " Rename: Ctrl+R, R
-noremap <C-R><C-R> <ESC>:action RenameElement<CR>
-
-" Go to implementation
-noremap <leader>gi <ESC>:action GotoImplementation<CR>
-
-" Find usages
-noremap <leader>fu <ESC>:action FindUsages<CR>
-
-" Go to declaration
-noremap <leader>gd <ESC>:action GoToDeclaration<CR>
-
-" Go to definition
-noremap <leader>gD <ESC>:action GoToDefinition<CR>
-
-" Show info on hover
-noremap K <ESC>:action ShowHoverInfo<CR>
+map <C-R><C-R> <Action>(RenameElement)
