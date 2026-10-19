@@ -2,8 +2,8 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
-vim.keymap.set("n", "<C-h>", "<cm>nohlsearch<cmd>")
-vim.keymap.set("v", "<C-h>", "<cm>nohlsearch<cmd>")
+vim.keymap.set("n", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")
+vim.keymap.set("v", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")
 
 vim.keymap.set('n', '<C-j>', '<Esc>')
 vim.keymap.set('i', '<C-j>', '<Esc>')
