@@ -132,10 +132,9 @@ nmap <C-w>L      <Action>(ChangeSplitOrientation)
 
 "" -- Terminal --
 " Toggle the terminal tool window (toggleterm.nvim's default key)
-sethandler <C-\> a:vim
-nmap <C-\> <Action>(ActivateTerminalToolWindow)
-imap <C-\> <Action>(ActivateTerminalToolWindow)
-vmap <C-\> <Action>(ActivateTerminalToolWindow)
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)
+imap <leader>tt <Action>(ActivateTerminalToolWindow)
+vmap <leader>tt <Action>(ActivateTerminalToolWindow)
 
 
 "" -- Search (after/plugin/telescope.lua) --
