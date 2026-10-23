@@ -133,7 +133,6 @@ nmap <C-w>L      <Action>(ChangeSplitOrientation)
 "" -- Terminal --
 " Toggle the terminal tool window (toggleterm.nvim's default key)
 nmap <leader>tt <Action>(ActivateTerminalToolWindow)
-imap <leader>tt <Action>(ActivateTerminalToolWindow)
 vmap <leader>tt <Action>(ActivateTerminalToolWindow)
 
 
