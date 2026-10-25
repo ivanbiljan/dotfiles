@@ -1,7 +1,6 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "main",
         lazy = false,
         build = ":TSUpdate",
         config = function()
@@ -36,11 +35,14 @@ return {
                         return
                     end
 
-                    pcall(vim.treesitter.start, buf, lang)
+                    local initialized = pcall(vim.treesitter.start, buf, lang)
+                    local noIndent = { "cs" }
 
-                    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                    vim.bo[buf].smartindent = false
-                    vim.bo[buf].cindent = false
+                    if initialized and not vim.list_contains(noIndent, args.match) then
+                        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        vim.bo[buf].smartindent = false
+                        vim.bo[buf].cindent = false
+                    end
                 end
             })
         end
