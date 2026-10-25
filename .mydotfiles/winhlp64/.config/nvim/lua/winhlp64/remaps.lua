@@ -8,8 +8,8 @@ map("n", "<leader>w", ":write<CR>")
 map("n", "<leader>q", ":quit<CR>")
 
 -- Clear highlight search
-map("n", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")
-map("v", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")
+map("n", "<leader>hs", ":nohlsearch<CR>")
+map("v", "<leader>hs", ":nohlsearch<CR>")
 
 -- Delete character under cursor without overriding the buffer
 map("n", "x", '"_x')
