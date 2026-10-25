@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-res_w=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .width')
-res_h=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .height')
-h_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale' | sed 's/\.//')
-w_margin=$((res_h * 27 / h_scale))
-wlogout -b 5 -T $w_margin -B $w_margin
+margin=$(hyprctl -j monitors | jq '
+  .[] | select(.focused)
+  | (if (.transform % 2) == 1 then .width else .height end) as $h
+  | ($h / .scale * 0.27) | floor
+')
+
+wlogout -b 5 -T "$margin" -B "$margin" --protocol layer-shell
