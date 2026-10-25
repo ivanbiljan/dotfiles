@@ -21,4 +21,6 @@ vim.opt.foldmethod = "manual"
 vim.opt.foldlevelstart = 120
 vim.opt.wrap = false
 
+vim.opt.scrolloff = 8
+
 vim.opt.wildignore = ".hg,.snv,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site"
