@@ -27,21 +27,20 @@ return {
             vim.api.nvim_create_autocmd("FileType", {
                 pattern = "*",
                 callback = function (args)
-                    local buf = args.buf
-                    local filetype = vim.bo[buf].filetype
+                    local buffer = vim.bo[args.buf]
 
-                    local lang = vim.treesitter.language.get_lang(filetype)
+                    local lang = vim.treesitter.language.get_lang(buffer.filetype)
                     if not lang then
                         return
                     end
 
-                    local initialized = pcall(vim.treesitter.start, buf, lang)
-                    local noIndent = { "cs" }
+                    local started = pcall(vim.treesitter.start, args.buf, lang)
+                    local indentation_exclusions = { "cs", "lua" }
 
-                    if initialized and not vim.list_contains(noIndent, args.match) then
-                        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                        vim.bo[buf].smartindent = false
-                        vim.bo[buf].cindent = false
+                    if started and not vim.list_contains(indentation_exclusions, args.match) then
+                        buffer.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        buffer.smartindent = false
+                        buffer.cindent = false
                     end
                 end
             })
