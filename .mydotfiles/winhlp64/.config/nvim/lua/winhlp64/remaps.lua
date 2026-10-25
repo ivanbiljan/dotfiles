@@ -4,7 +4,8 @@ local map = vim.keymap.set
 vim.g.mapleader = " "
 
 map("n", "<leader>pv", vim.cmd.Ex)
-map("n", "<leader>w", "<cmd>w<cr>")
+map("n", "<leader>w", ":write<CR>")
+map("n", "<leader>q", ":quit<CR>")
 
 -- Clear highlight search
 map("n", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")
