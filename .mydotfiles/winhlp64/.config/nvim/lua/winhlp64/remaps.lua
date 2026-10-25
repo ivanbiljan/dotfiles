@@ -6,6 +6,10 @@ vim.g.mapleader = " "
 map("n", "<leader>pv", vim.cmd.Ex)
 map("n", "<leader>w", "<cmd>w<cr>")
 
+
+-- Format code using LSP
+map("n", "<leader>f", vim.lsp.buf.format)
+
 -- Clear highlight search
 map("n", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")
 map("v", "<C-h>", "<cmd>nohlsearch<CR><cmd><CR>")

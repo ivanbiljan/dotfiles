@@ -48,16 +48,10 @@ return {
                         opts.desc = "Toggle inlay hints"
                         vim.keymap.set("n", "<leader>ih", function()
                             vim.lsp.inlay_hint.enable(
-                                not vim.lsp.inlay_hint.is_enabled({ bufnr = 0}),
-                                { bufnr = 0}
+                                not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }),
+                                { bufnr = 0 }
                             )
                         end)
-
-                        -- Format code
-                        opts.desc = "Format code in buffer"
-                        vim.keymap.set("n", "<leader>fc", function()
-                            vim.lsp.buf.format { async = true }
-                        end, opts)
                     end
                 })
 
@@ -77,14 +71,21 @@ return {
                     }
                 })
 
-                vim.lsp.config("roslyn_ls", {
+                vim.lsp.config("roslyn", {
                     settings = {
                         ["csharp|code_lens"] = {
                             dotnet_enable_references_code_lens = false
                         },
                         ["csharp|inlay_hints"] = {
                             csharp_enable_inlay_hints_for_implicit_object_creation = true,
-                            csharp_enable_inlay_hints_for_implicit_variable_types = true
+                            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+                            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+                            csharp_enable_inlay_hints_for_types = true,
+                            csharp_enable_inlay_hints_for_indexer_parameters = true,
+                            csharp_enable_inlay_hints_for_literal_parameters = true,
+                            csharp_enable_inlay_hints_for_object_creation_parameters = true,
+                            csharp_enable_inlay_hints_for_other_parameters = true,
+                            csharp_enable_inlay_hints_for_parameters = true,
                         }
                     }
                 })
