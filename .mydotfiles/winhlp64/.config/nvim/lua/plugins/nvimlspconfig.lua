@@ -61,7 +61,23 @@ return {
                     end
                 })
 
-                vim.lsp.config("roslyn", {
+                vim.lsp.config("lua_ls", {
+                    settings = {
+                        Lua = {
+                            diagnostics = {
+                                globals = { "vim" }
+                            },
+                            workspace = {
+                                library = vim.api.nvim_get_runtime_file("lua", true)
+                            },
+                            hint = {
+                                enable = true
+                            }
+                        }
+                    }
+                })
+
+                vim.lsp.config("roslyn_ls", {
                     settings = {
                         ["csharp|code_lens"] = {
                             dotnet_enable_references_code_lens = false
