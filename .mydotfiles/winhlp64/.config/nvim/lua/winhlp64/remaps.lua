@@ -27,26 +27,6 @@ map('i', '<down>', '<nop>')
 map('i', '<left>', '<nop>')
 map('i', '<right>', '<nop>')
 
--- Map Ctrl + J/K to escape
-map('n', '<C-j>', '<Esc>')
-map('i', '<C-j>', '<Esc>')
-map('v', '<C-j>', '<Esc>')
-map('s', '<C-j>', '<Esc>')
-map('x', '<C-j>', '<Esc>')
-map('c', '<C-j>', '<Esc>')
-map('o', '<C-j>', '<Esc>')
-map('l', '<C-j>', '<Esc>')
-map('t', '<C-j>', '<Esc>')
-map('n', '<C-k>', '<Esc>')
-map('i', '<C-k>', '<Esc>')
-map('v', '<C-k>', '<Esc>')
-map('s', '<C-k>', '<Esc>')
-map('x', '<C-k>', '<Esc>')
-map('c', '<C-k>', '<Esc>')
-map('o', '<C-k>', '<Esc>')
-map('l', '<C-k>', '<Esc>')
-map('t', '<C-k>', '<Esc>')
-
 -- Automatically center the cursor 
 map("n", "j", "gjzz") -- go down one line respecting wrapped lines and center
 map("n", "k", "gkzz") -- go up one line respecting wrapped lines and center
