@@ -10,8 +10,9 @@ return {
                 })
 
                 vim.api.nvim_create_autocmd("LspAttach", {
+                    group = vim.api.nvim_create_group("UserLspConfig", { clear = true }),
                     callback = function(ev)
-                        local opts = { buffer = ev.buffer }
+                        local opts = { buffer = ev.buf, silent = true }
 
                         -- Show references
                         opts.desc = "Show LSP references"
@@ -38,11 +39,14 @@ return {
                         vim.keymap.set({ "n", "i", "v" }, "<C-k>", vim.lsp.buf.signature_help, opts)
 
                         opts.desc = "Rename symbol under the cursor"
-                        vim.keymap.set("n", "<leader>rs", vim.lsp.buf.rename, opts)
+                        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
                         -- Code actions
                         opts.desc = "List available code actions"
                         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+                        opts.desc = "Show diagnostics"
+                        vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics<CR>", opts)
 
                         -- Toggle inlay hints
                         opts.desc = "Toggle inlay hints"
