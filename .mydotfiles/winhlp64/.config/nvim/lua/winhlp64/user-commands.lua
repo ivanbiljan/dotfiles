@@ -34,7 +34,7 @@ local function complete_include_flag(arglead)
     local results = {}
     for _, match in ipairs(vim.fn.getcompletion(root .. "/" .. partial, "file")) do
         local rel = match:sub(#root + 2)
-        table.insert(results, #INCLUDE_FLAG .. head .. rel)
+        table.insert(results, INCLUDE_FLAG .. head .. rel)
     end
 
     return results
