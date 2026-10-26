@@ -9,7 +9,7 @@ end
 
 local function find_sln_from_buf(bufnr)
     local file = vim.api.nvim_buf_get_name(bufnr)
-    local buf_dir = file ~= "" and vim.fs.dirname(file) or vim.uw.cwd()
+    local buf_dir = file ~= "" and vim.fs.dirname(file) or vim.uv.cwd()
     local sln = find_sln_root(buf_dir)
 
     return sln, sln and vim.fs.normalize(vim.fs.dirname(sln))
