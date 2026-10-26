@@ -43,4 +43,5 @@ opt.wildignore = {                -- skipped by file-name completion and wildcar
 }
 
 -- System integration
-opt.clipboard = "unnamedplus" -- y/p use the system clipboard
+-- opt.clipboard = "unnamedplus" -- y/p use the system clipboard
+vim.opt.clipboard = "unnamedplus"
