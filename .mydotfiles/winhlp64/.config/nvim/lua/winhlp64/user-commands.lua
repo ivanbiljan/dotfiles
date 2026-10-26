@@ -40,15 +40,38 @@ local function complete_include_flag(arglead)
     return results
 end
 
+---@return string? normalized_path, string? err
+local function normalize_include_path(path, root)
+    local absolute_path = vim.fs.normalize(vim.fs.joinpath(root, path))
+    local relative_path = ""
+
+    if vim.startswith(absolute_path, root .. "/") then
+        relative_path = absolute_path:sub(#root + 2)
+    else
+        return nil, "'" .. path .. "' is outside the solution directory"
+    end
+
+    if vim.fn.isdirectory(absolute_path) == 1 then
+        return relative_path == "" and "**/*" or relative_path .. "/**/*"
+    end
+
+    return relative_path
+end
+
 ---@return string[]? includes, string? err
-local function parse_includes(fargs)
+local function parse_includes(fargs, root)
     local includes = {}
     for _, arg in ipairs(fargs) do
         if not vim.startswith(arg, INCLUDE_FLAG) then
             return nil, "Unknwon argument '" .. arg .. "'"
         end
         for pattern in arg:sub(#INCLUDE_FLAG + 1):gmatch("[^;]+") do
-            table.insert(includes, pattern)
+            local normalized_path, normalize_err = normalize_include_path(pattern, root)
+            if normalize_err ~= nil then
+                vim.notify("Unable to parse path '" .. pattern .. "': " .. normalize_err)
+            else
+                table.insert(includes, normalized_path)
+            end
         end
     end
 
@@ -66,17 +89,17 @@ end
 vim.api.nvim_create_user_command(
     "JBCleanup",
     function(args)
-        local includes, parse_includes_err = parse_includes(args.fargs)
-        if not includes then
-            vim.notify(parse_includes_err or "Unable to parse --include list", vim.log.levels.ERROR)
-            return
-        end
-
         -- Some refactorings (such as member reordering) require semantic analysis of the entire sln
         -- TODO: Rider loads the sln on startup. See if something similar can be done here
         local bufnr = vim.api.nvim_get_current_buf()
         local sln, root = find_sln_from_buf(bufnr)
         local cwd, cmd
+
+        local includes, parse_includes_err = parse_includes(args.fargs, root)
+        if not includes then
+            vim.notify(parse_includes_err or "Unable to parse --include list", vim.log.levels.ERROR)
+            return
+        end
 
         if #includes == 0 then
             local allowed_filetypes = {
