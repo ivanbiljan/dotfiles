@@ -1,5 +1,5 @@
 require("winhlp64.lazy")
 require("winhlp64.opts")
-require("winhlp64.remaps")
+require("winhlp64.keymaps")
 require("winhlp64.diagnostics")
 require("winhlp64.autocmd")
