@@ -1,5 +1,5 @@
 -- JetBrains ReSharper Tools
-local INCLUDE_FLAG = "--include="
+local SCOPE_FLAG = "--scope="
 
 local function find_sln_root(path)
     return vim.fs.find(function(name)
@@ -16,8 +16,8 @@ local function find_sln_from_buf(bufnr)
 end
 
 local function complete_include_flag(arglead)
-    if arglead:sub(1, #INCLUDE_FLAG) ~= INCLUDE_FLAG then
-        return vim.startswith(INCLUDE_FLAG, arglead) and { INCLUDE_FLAG } or {}
+    if arglead:sub(1, #SCOPE_FLAG) ~= SCOPE_FLAG then
+        return vim.startswith(SCOPE_FLAG, arglead) and { SCOPE_FLAG } or {}
     end
 
     local _, root = find_sln_from_buf(0)
@@ -25,7 +25,7 @@ local function complete_include_flag(arglead)
         return {}
     end
 
-    local value = arglead:sub(#INCLUDE_FLAG + 1)
+    local value = arglead:sub(#SCOPE_FLAG + 1)
     local head, partial = value:match("^(.*;)([^;]*)$")
     if not head then
         head, partial = "", value
@@ -34,7 +34,7 @@ local function complete_include_flag(arglead)
     local results = {}
     for _, match in ipairs(vim.fn.getcompletion(root .. "/" .. partial, "file")) do
         local rel = match:sub(#root + 2)
-        table.insert(results, INCLUDE_FLAG .. head .. rel)
+        table.insert(results, SCOPE_FLAG .. head .. rel)
     end
 
     return results
@@ -42,6 +42,10 @@ end
 
 ---@return string? normalized_path, string? err
 local function normalize_include_path(path, root)
+    if root == nil then
+        return path
+    end
+
     local absolute_path = vim.fs.normalize(vim.fs.joinpath(root, path))
     local relative_path = ""
 
@@ -62,10 +66,10 @@ end
 local function parse_includes(fargs, root)
     local includes = {}
     for _, arg in ipairs(fargs) do
-        if not vim.startswith(arg, INCLUDE_FLAG) then
+        if not vim.startswith(arg, SCOPE_FLAG) then
             return nil, "Unknwon argument '" .. arg .. "'"
         end
-        for pattern in arg:sub(#INCLUDE_FLAG + 1):gmatch("[^;]+") do
+        for pattern in arg:sub(#SCOPE_FLAG + 1):gmatch("[^;]+") do
             local normalized_path, normalize_err = normalize_include_path(pattern, root)
             if normalize_err ~= nil then
                 vim.notify("Unable to parse path '" .. pattern .. "': " .. normalize_err)
@@ -81,7 +85,9 @@ end
 local function reload_buffers()
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         if vim.api.nvim_buf_is_loaded(buf) and not vim.bo[buf].modified then
-            vim.cmd("silent! edit")
+            vim.api.nvim_buf_call(buf, function ()
+                vim.cmd("silent! edit")
+            end)
         end
     end
 end
@@ -90,7 +96,6 @@ vim.api.nvim_create_user_command(
     "JBCleanup",
     function(args)
         -- Some refactorings (such as member reordering) require semantic analysis of the entire sln
-        -- TODO: Rider loads the sln on startup. See if something similar can be done here
         local bufnr = vim.api.nvim_get_current_buf()
         local sln, root = find_sln_from_buf(bufnr)
         local cwd, cmd
@@ -98,6 +103,7 @@ vim.api.nvim_create_user_command(
         local includes, parse_includes_err = parse_includes(args.fargs, root)
         if not includes then
             vim.notify(parse_includes_err or "Unable to parse --include list", vim.log.levels.ERROR)
+
             return
         end
 
@@ -110,12 +116,14 @@ vim.api.nvim_create_user_command(
 
             if not allowed_filetypes[vim.bo[bufnr].filetype] then
                 vim.notify("ReSharper code cleanup is only available for C# files", vim.log.levels.ERROR)
+
                 return
             end
 
             local file = vim.api.nvim_buf_get_name(bufnr)
             if file == "" then
                 vim.notify("Buffer has no file on disk", vim.log.levels.WARN)
+
                 return
             end
 
@@ -134,11 +142,12 @@ vim.api.nvim_create_user_command(
                     "The --include flag must be used within the context of a dotnet .sln(x)" ..
                     "but no solution was found for the current buffer's directory",
                     vim.log.levels.ERROR)
+
                 return
             end
 
             cwd = root
-            cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", sln, INCLUDE_FLAG .. table.concat(includes, ";") }
+            cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", sln, SCOPE_FLAG .. table.concat(includes, ";") }
 
             vim.cmd("silent! wall")
         end
@@ -153,6 +162,8 @@ vim.api.nvim_create_user_command(
                     if out.code ~= 0 then
                         local err = (out.stderr ~= "" and out.stderr) or out.stdout or ""
                         vim.notify("ReSharper code cleanup failed:\n" .. err, vim.log.levels.ERROR)
+
+                        return
                     end
 
                     reload_buffers()
