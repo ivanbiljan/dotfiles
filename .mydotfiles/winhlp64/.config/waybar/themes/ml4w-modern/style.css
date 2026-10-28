@@ -57,7 +57,7 @@ window#waybar {
   color: @on_surface;
   background-color: @background;
   transition: all 0.3s ease-in-out;
-  border: 2px solid @primary;
+  border: 1px solid @primary;
 }
 
 #workspaces button.active {
@@ -334,7 +334,7 @@ window#waybar.empty #window {
   border-radius: 8px;
   padding: 2px 10px 0px 10px;
   margin: 3px 10px 3px 0px;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -398,7 +398,7 @@ window#waybar.empty #window {
   border-radius: 8px;
   padding: 1px 10px 0px 10px;
   margin: 3px 0px 3px 0px;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -415,7 +415,7 @@ window#waybar.empty #window {
   border-radius: 8px;
   padding: 1px 10px 0px 10px;
   margin: 3px 10px 3px 0px;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -436,7 +436,7 @@ window#waybar.empty #window {
   border-radius: 8px;
   padding: 2px 10px 0px 10px;
   margin: 3px 10px 3px 0px;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -458,7 +458,7 @@ window#waybar.empty #window {
   padding: 2px 10px 0px 10px;
   margin: 3px 10px 3px 0px;
   opacity: 1;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -484,7 +484,7 @@ window#waybar.empty #window {
   border-radius: 8px;
   padding: 2px 10px 0px 10px;
   margin: 3px 10px 3px 0px;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -523,7 +523,7 @@ window#waybar.empty #window {
   border-radius: 8px;
   padding: 2px 10px 0px 10px;
   margin: 3px 10px 3px 0px;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
   transition: all 0.3s ease-out;
 }
 
@@ -551,7 +551,7 @@ window#waybar.empty #window {
   padding: 2px 15px 0px 10px;
   margin: 3px 15px 3px 0px;
   opacity: 1;
-  border: 2px solid @border_color;
+  border: 1px solid @primary;
 }
 
 #battery.charging,
