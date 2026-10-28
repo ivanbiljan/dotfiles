@@ -130,9 +130,9 @@ vim.api.nvim_create_user_command(
             if sln then
                 cwd = vim.fs.dirname(sln)
                 local rel_file_path = file:sub(#cwd + 2)
-                cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", sln, "--include=" .. rel_file_path }
+                cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", sln, "--no-build", "--include=" .. rel_file_path }
             else
-                cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", vim.fn.expand("%") }
+                cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", "--no-build", vim.fn.expand("%") }
             end
 
             vim.cmd("silent update")
@@ -147,7 +147,7 @@ vim.api.nvim_create_user_command(
             end
 
             cwd = root
-            cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", sln, SCOPE_FLAG .. table.concat(includes, ";") }
+            cmd = { "dotnet", "tool", "run", "jb", "cleanupcode", sln, "--no-build", SCOPE_FLAG .. table.concat(includes, ";") }
 
             vim.cmd("silent! wall")
         end
