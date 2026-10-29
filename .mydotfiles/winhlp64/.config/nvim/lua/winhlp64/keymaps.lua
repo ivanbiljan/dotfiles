@@ -3,13 +3,13 @@ local map = vim.keymap.set
 -- Set Space as leader key
 vim.g.mapleader = " "
 
-map("n", "<leader>pv", vim.cmd.Ex)
-map("n", "<leader>w", ":write<CR>")
-map("n", "<leader>q", ":quit<CR>")
+map("n", "<leader>pv", vim.cmd.Ex, { desc = "Opens netrw" })
+map("n", "<leader>w", ":write<CR>", { desc = "Writes the current buffer to disk" })
+map("n", "<leader>q", ":quit<CR>", { desc = "Quits the current window if no changes were made" })
 
 -- Clear highlight search
-map("n", "<leader>hs", ":nohlsearch<CR>")
-map("v", "<leader>hs", ":nohlsearch<CR>")
+map("n", "<leader>hs", ":nohlsearch<CR>", { desc = "Clear highlight search results" })
+map("v", "<leader>hs", ":nohlsearch<CR>", { desc = "Clear highlight search results" })
 
 -- Delete character under cursor without overriding the buffer
 map("n", "x", '"_x')
@@ -59,24 +59,24 @@ map("n", "n", "nzzzv")       -- next search result and center
 map("n", "N", "Nzzzv")       -- previous search result and center
 
 -- Splits
-map("n", "<leader>sv", "<C-w>v")
-map("n", "<leader>sh", "<C-w>s")
-map("n", "<leader>sx", "<cmd>close<CR>")
+map("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+map("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
+map("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close the current split" })
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-j>", "<C-w>j")
 map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
 
 -- Resize with arrows
-map("n", "<C-Up>", "<cmd>resize -1<CR><cmd><CR>")
-map("n", "<C-Down>", "<cmd>resize +1<CR><cmd><CR>")
-map("n", "<C-Left>", "<cmd>vertical resize -1<CR><cmd><CR>")
-map("n", "<C-Right>", "<cmd>vertical resize +1<CR><cmd><CR>")
+map("n", "<C-Up>", "<cmd>resize -1<CR><cmd><CR>", { desc = "Resize horizontal split" })
+map("n", "<C-Down>", "<cmd>resize +1<CR><cmd><CR>", { desc = "Resize horizontal split" })
+map("n", "<C-Left>", "<cmd>vertical resize -1<CR><cmd><CR>", { desc = "Resize vertical split" })
+map("n", "<C-Right>", "<cmd>vertical resize +1<CR><cmd><CR>", { desc = "Resize vertical split" })
 
 -- Move selected text up and down
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Indentation
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("v", "<", "<gv", { desc = "Outdent selection" })
+map("v", ">", ">gv", { desc = "Indent selection" })
