@@ -27,36 +27,39 @@ map('i', '<down>', '<nop>')
 map('i', '<left>', '<nop>')
 map('i', '<right>', '<nop>')
 
--- Automatically center the cursor
-map("n", "j", "gjzz")        -- go down one line respecting wrapped lines and center
-map("n", "k", "gkzz")        -- go up one line respecting wrapped lines and center
-map("n", "G", "Gzz")         -- go to line / end of file and center
-map("n", "#", "#zz")         -- search backward for word under cursor and center
-map("n", "*", "*zz")         -- search forward for word under cursor and center
-map("n", "w", "wzz")         -- foward one word and center
-map("n", "W", "Wzz")         -- foward whitespace delimited word and center
-map("n", "e", "ezz")         -- end of word and center
-map("n", "E", "Ezz")         -- end of whitespace delimited word and center
-map("n", "b", "bzz")         -- back one word and center
-map("n", "B", "Bzz")         -- back one whitespace delimited word and center
-map("n", "H", "Hzz")         -- top of visible screen and center
-map("n", "L", "Lzz")         -- bottom of visible screen and center
-map("n", "0", "0zz")         -- start of line and center
-map("n", "$", "$zz")         -- end of line and center
-map("n", "^", "^zz")         -- first non blank char of line and center
-map("n", "u", "uzz")         -- undo and center
-map("n", "(", "(zz")         -- previous sentence and center
-map("n", ")", ")zz")         -- next sentence and center
-map("n", "{", "{zz")         -- previous para and center
-map("n", "}", "}zz")         -- next para and center
-map("n", "[{", "[{zz")       -- jump to opening { of current block and center
-map("n", "]}", "]}zz")       -- jump to closing } of current block and center
-map("n", "gd", "gdzz")       -- go to declaration and center
-map("n", "gD", "gDzz")       -- go to declaration and center
+-- -- Automatically center the cursor
+-- map("n", "j", "gjzz")        -- go down one line respecting wrapped lines and center
+-- map("n", "k", "gkzz")        -- go up one line respecting wrapped lines and center
+-- map("n", "G", "Gzz")         -- go to line / end of file and center
+-- map("n", "#", "#zz")         -- search backward for word under cursor and center
+-- map("n", "*", "*zz")         -- search forward for word under cursor and center
+-- map("n", "w", "wzz")         -- foward one word and center
+-- map("n", "W", "Wzz")         -- foward whitespace delimited word and center
+-- map("n", "e", "ezz")         -- end of word and center
+-- map("n", "E", "Ezz")         -- end of whitespace delimited word and center
+-- map("n", "b", "bzz")         -- back one word and center
+-- map("n", "B", "Bzz")         -- back one whitespace delimited word and center
+-- map("n", "H", "Hzz")         -- top of visible screen and center
+-- map("n", "L", "Lzz")         -- bottom of visible screen and center
+-- map("n", "0", "0zz")         -- start of line and center
+-- map("n", "$", "$zz")         -- end of line and center
+-- map("n", "^", "^zz")         -- first non blank char of line and center
+-- map("n", "u", "uzz")         -- undo and center
+-- map("n", "(", "(zz")         -- previous sentence and center
+-- map("n", ")", ")zz")         -- next sentence and center
+-- map("n", "{", "{zz")         -- previous para and center
+-- map("n", "}", "}zz")         -- next para and center
+-- map("n", "[{", "[{zz")       -- jump to opening { of current block and center
+-- map("n", "]}", "]}zz")       -- jump to closing } of current block and center
+-- map("n", "gd", "gdzz")       -- go to declaration and center
+-- map("n", "gD", "gDzz")       -- go to declaration and center
 map("n", "<C-D>", "<C-D>zz") -- move down and center
 map("n", "<C-U>", "<C-U>zz") -- move up and center
 map("n", "n", "nzzzv")       -- next search result and center
 map("n", "N", "Nzzzv")       -- previous search result and center
+map("n", "*", "*zz")
+map("n", "#", "#zz")
+map("n", "g*", "g*zz")
 
 -- Splits
 map("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
